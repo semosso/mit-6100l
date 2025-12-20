@@ -3,29 +3,29 @@
 #################
 
 # approximating the square root using exhaustive enumeration
-# x = int(input("enter an integer: "))
-# epsilon = 0.01 # how close do you want the approximation to get 
-# step = epsilon ** 2
-# num_guesses = 0
-# ans = 0.0
-# while abs(ans ** 2 - x) >= epsilon and ans <= x: # VAO: both have to be true; i.e., if any is false, loop is over
-#                                                  # first one checks if your guess is close enough to the epsilon "margin of error"
-#                                                  # or better, approximation threshold, delta etc.
-#                                                  # second one determines how many time you should run the loop for?
-#                                                  # not sure what it does, as that is covered by the first one too...
-#                                                  # FROM LECTURE: I'm right into what each one does, but I'm wrong in thinking that accuracy tracker (epsilon) handles size of loop
-#                                                  # i.e., without second condition, you can "overshoot" the X, i.e., guess**2 gets close enough to X but not within range,
-#                                                  # and then next guess overshoots it, and from there it just keeps increasing
-#                                                  # from lec6: "and ans <= x" measures how reasonable the guess is
-#     ans += step # increase ans by 0.01^2 each time, the approximation delta we decided above
-#                 # this will be extremely slow, as you're only adding small increments; i.e., loop will take forever
-#                 # e.g., 19975 guesses to find out sqrt de 4
-#     num_guesses += 1
-# print("number of guesses =", num_guesses)
-# if abs(ans ** 2 - x) >= epsilon:
-#     print("Failed on square root of", x)
-# else:
-#     print(ans, "is close to square root of", x)
+x = int(input("enter an integer: "))
+epsilon = 0.01 # how close do you want the approximation to get 
+step = epsilon ** 2
+num_guesses = 0
+ans = 0.0
+while abs(ans ** 2 - x) >= epsilon and ans <= x: # VAO: both have to be true; i.e., if any is false, loop is over
+                                                 # first one checks if your guess is close enough to the epsilon "margin of error"
+                                                 # or better, approximation threshold, delta etc.
+                                                 # second one determines how many time you should run the loop for?
+                                                 # not sure what it does, as that is covered by the first one too...
+                                                 # FROM LECTURE: I'm right into what each one does, but I'm wrong in thinking that accuracy tracker (epsilon) handles size of loop
+                                                 # i.e., without second condition, you can "overshoot" the X, i.e., guess**2 gets close enough to X but not within range,
+                                                 # and then next guess overshoots it, and from there it just keeps increasing
+                                                 # from lec6: "and ans <= x" measures how reasonable the guess is
+    ans += step # increase ans by 0.01^2 each time, the approximation delta we decided above
+                # this will be extremely slow, as you're only adding small increments; i.e., loop will take forever
+                # e.g., 19975 guesses to find out sqrt de 4
+    num_guesses += 1
+print("number of guesses =", num_guesses)
+if abs(ans ** 2 - x) >= epsilon:
+    print("Failed on square root of", x)
+else:
+    print(ans, "is close to square root of", x)
 
 # and now using bisection search, which should really cut down on execution time
 x = int(input("enter an integer: "))
@@ -54,63 +54,63 @@ print(ans, "is close to square root of", x)
 # Hint: think about changing low to ensure that the answer lies within the region to be searched.
 
 # first solution feels like "cheating"? i.e., having the same code run with abs(x), and adding the if statement at the end to "convert" +/- root
-# x = int(input("enter an integer: "))
-# epsilon = 0.01
-# num_guesses, low = 0, 0
-# high = max(1, abs(x))
-# ans = (high + low) / 2
-# while abs(ans ** 3 - abs(x)) >= epsilon:
-#     print("low =", low, "high =", high, "ans =", ans, num_guesses)
-#     num_guesses += 1
-#     if ans ** 3 < abs(x):
-#         low = ans
-#     else:
-#         high = ans
-#     ans = (high + low) / 2
-# print("number of guesses =", num_guesses)
-# if x < 0:
-#     print(-ans, "is close to cube root of", x)
-# else:
-#     print(ans, "is close to cube root of", x)
+x = int(input("enter an integer: "))
+epsilon = 0.01
+num_guesses, low = 0, 0
+high = max(1, abs(x))
+ans = (high + low) / 2
+while abs(ans ** 3 - abs(x)) >= epsilon:
+    print("low =", low, "high =", high, "ans =", ans, num_guesses)
+    num_guesses += 1
+    if ans ** 3 < abs(x):
+        low = ans
+    else:
+        high = ans
+    ans = (high + low) / 2
+print("number of guesses =", num_guesses)
+if x < 0:
+    print(-ans, "is close to cube root of", x)
+else:
+    print(ans, "is close to cube root of", x)
 
 # second solution, changing the ranges per the hint, w/o abs()
-# x = int(input("enter an integer: "))
-# epsilon = 0.01
-# num_guesses = 0
-# if x < 0: # VAO: same as professor did in lec 6, nice
-#     low = x
-#     high = 0
-# else:
-#     low = 0
-#     high = x
-# ans = (high + low) / 2
-# while abs(ans ** 3 + x) >= epsilon:
-#     print("low =", low, "high =", high, "ans =", ans, num_guesses)
-#     num_guesses += 1
-#     if ans ** 3 < x:
-#         low = ans
-#     else:
-#         high = ans
-#     ans = (high + low) / 2
-# print("number of guesses =", num_guesses)
-# print(ans, "is close to cube root of", x)
+x = int(input("enter an integer: "))
+epsilon = 0.01
+num_guesses = 0
+if x < 0: # VAO: same as professor did in lec 6, nice
+    low = x
+    high = 0
+else:
+    low = 0
+    high = x
+ans = (high + low) / 2
+while abs(ans ** 3 + x) >= epsilon:
+    print("low =", low, "high =", high, "ans =", ans, num_guesses)
+    num_guesses += 1
+    if ans ** 3 < x:
+        low = ans
+    else:
+        high = ans
+    ans = (high + low) / 2
+print("number of guesses =", num_guesses)
+print(ans, "is close to cube root of", x)
 
 # VAO: finger exercise, p 56: The Empire State Building is 102 stories high. A man wanted to know the highest floor from which he could drop
 # an egg without the egg breaking. He proposed to drop an egg from the top floor. If it broke, he would go down a floor, and try it again. 
 # He would do this until the egg did not break. At worst, the method requires 102 eggs. Implement a method that at worst uses seven eggs.
-# low, high = 1, 102
-# ideal_floor = int((low + high) / 2)
-# eggs = 0
-# result = ""
-# while high - low > 1:
-#     result = input(f"Dropping an egg from floor {ideal_floor}. Did the egg break? (Y/N)\n")
-#     eggs += 1
-#     if result == "Y" or result == "y":
-#         high = ideal_floor
-#     else:
-#         low = ideal_floor
-#     ideal_floor = int((high + low) / 2) # any input other than Y/N will go to this, and ultimately reduce to 1. But that's fine.
-# print(f"the highest floor from which you can drop an egg without breaking is {ideal_floor}. It took {eggs} eggs to figure that out")
+low, high = 1, 102
+ideal_floor = int((low + high) / 2)
+eggs = 0
+result = ""
+while high - low > 1:
+    result = input(f"Dropping an egg from floor {ideal_floor}. Did the egg break? (Y/N)\n")
+    eggs += 1
+    if result == "Y" or result == "y":
+        high = ideal_floor
+    else:
+        low = ideal_floor
+    ideal_floor = int((high + low) / 2) # any input other than Y/N will go to this, and ultimately reduce to 1. But that's fine.
+print(f"the highest floor from which you can drop an egg without breaking is {ideal_floor}. It took {eggs} eggs to figure that out")
 
 #################
 ## EXAMPLE: successive addition
@@ -137,33 +137,33 @@ print(ans, "is close to square root of", x)
 # protip: use Python Tutor to go step-by-step: http://pythontutor.com/
 #############
 
-# x = float(input('Enter a decimal number between 0 and 1: '))
+x = float(input('Enter a decimal number between 0 and 1: '))
 
-# p = 0
-# while ((2**p)*x)%1 != 0:
-#     print(f'Remainder = {str((2**p)*x - int((2**p)*x))}')
-#     p += 1
+p = 0
+while ((2**p)*x)%1 != 0:
+    print(f'Remainder = {str((2**p)*x - int((2**p)*x))}')
+    p += 1
 
-# num = int(x*(2**p))
+num = int(x*(2**p))
 
-# result = ''
-# if num == 0:
-#     result = '0'
-# while num > 0:
-#     result = str(num%2) + result
-#     num = num//2
+result = ''
+if num == 0:
+    result = '0'
+while num > 0:
+    result = str(num%2) + result
+    num = num//2
 
-# for i in range(p - len(result)):
-#     result = '0' + result
-# result = result[0:-p] + '.' + result[-p:] # VAO: not 100% sure I get this. OK, Claude was a great help in getting over this.
-#                                           # first one: start at 0, step -p. Does that "force" it to before the first entry? Wouldn't -1 do the trick?
-#                                           # NO! -p doesn't take it to before the first entry, but to "before however many entries are needed in your specific case"
-#                                           # it can, however, be rewritten as "[:-p]" for consistency with the second entry
-#                                           # second one: isn't this the same as [0:-p]? Also, what's with the colon after -p? does this mean anything else?
-#                                           # NO! It's not the same. [0:-p] means everything from the start but not the last p characters.
-#                                           # While [-p:] (or [-p:0] means everything after the first p characters (including the first one)
-#                                           # i.e., [0:-p] or [:-p] excludes the last p characters, while [-p:] or [-p:0] includes the last p characters
-# print(f'The binary representation of the decimal {str(x)} is {str(result)}')
+for i in range(p - len(result)):
+    result = '0' + result
+result = result[0:-p] + '.' + result[-p:] # VAO: not 100% sure I get this. OK, Claude was a great help in getting over this.
+                                          # first one: start at 0, step -p. Does that "force" it to before the first entry? Wouldn't -1 do the trick?
+                                          # NO! -p doesn't take it to before the first entry, but to "before however many entries are needed in your specific case"
+                                          # it can, however, be rewritten as "[:-p]" for consistency with the second entry
+                                          # second one: isn't this the same as [0:-p]? Also, what's with the colon after -p? does this mean anything else?
+                                          # NO! It's not the same. [0:-p] means everything from the start but not the last p characters.
+                                          # While [-p:] (or [-p:0] means everything after the first p characters (including the first one)
+                                          # i.e., [0:-p] or [:-p] excludes the last p characters, while [-p:] or [-p:0] includes the last p characters
+print(f'The binary representation of the decimal {str(x)} is {str(result)}')
 
 
 ################
@@ -172,16 +172,16 @@ print(ans, "is close to square root of", x)
 ################
 
 # try with 36, 24, 2, 12345
-# x = 36
-# epsilon = 0.01
-# num_guesses = 0
-# guess = 0.0
-# increment = 0.0001
-# while abs(guess**2 - x) >= epsilon:
-#     guess += increment
-#     num_guesses += 1
-# print(f'num_guesses = {num_guesses}')
-# print(f'{guess} is close to square root of {x}')
+x = 36
+epsilon = 0.01
+num_guesses = 0
+guess = 0.0
+increment = 0.0001
+while abs(guess**2 - x) >= epsilon:
+    guess += increment
+    num_guesses += 1
+print(f'num_guesses = {num_guesses}')
+print(f'{guess} is close to square root of {x}')
 
 ###########
 
@@ -230,11 +230,11 @@ print(ans, "is close to square root of", x)
 #################################################
 # 1. If you are incrementing from 0 by 0.022, how many increments 
 # can you do before you get a floating point error? 
-# x = 0
-# count = 20     # check different numbers here
-# for i in range(count):
-#     x += 0.022 # increment
-#     print(x)      # check this value for floating point error
+x = 0
+count = 20     # check different numbers here
+for i in range(count):
+    x += 0.022 # increment
+    print(x)      # check this value for floating point error
 
 # VAO: on the fifth increment, you get 0.109999 instead of 0.11
 
@@ -244,15 +244,15 @@ print(ans, "is close to square root of", x)
 # until you start to get a floating point error.
 
 # your code here
-# increment = float(input("what should be the increment? "))
-# count = 1
-# sum, mult = increment, increment
-# while sum == mult: # a solução abaixo está quase idêntica, mas otimiza quando coloca
-#                    # a multiplicação dentro da condicional do loop, em vez de repetir o statement
-#     count += 1
-#     sum += increment
-#     mult = count * increment
-# print(f"{count - 1} is when you get floating point error: {sum - increment} != {(count - 1) * increment}")
+increment = float(input("what should be the increment? "))
+count = 1
+sum, mult = increment, increment
+while sum == mult: # a solução abaixo está quase idêntica, mas otimiza quando coloca
+                   # a multiplicação dentro da condicional do loop, em vez de repetir o statement
+    count += 1
+    sum += increment
+    mult = count * increment
+print(f"{count - 1} is when you get floating point error: {sum - increment} != {(count - 1) * increment}")
 # se não tirar incremento, mostra errado, i.e., o próximo valor de sum e mult, em vez do valor que saiu do loop
 
 #################################################

@@ -3,44 +3,45 @@
 # ##################
 
 # finger exercise, p 36: Replace the comment in the following code with a while loop
-# num_X = int(input("How many times should I print the letter X? "))
-# to_print = ""
-# # concatenate X to to_print num_x times
-# while len(to_print) < num_X:
-#     to_print += "X"
-# print (to_print)
+num_X = int(input("How many times should I print the letter X? "))
+to_print = ""
+# concatenate X to to_print num_x times
+while len(to_print) < num_X:
+    to_print += "X"
+print (to_print)
 
 # finger exercise, p 36: Write a program that asks the user to input 10 integers, and then prints the largest odd number that was entered.
 # If no odd number was entered, it should print a message to that effect.
 
 # first, break example from the book: Find a positive integer that is divisable by both 11 and 12
-# x = 1
-# while True:
-#     if x%11 == 0 and x%12 == 0:
-#         break
-#     x = x + 1
-# print (x, "is divisible by 11 and 12")
+x = 1
+while True:
+    if x%11 == 0 and x%12 == 0:
+        break
+    x = x + 1
+print (x, "is divisible by 11 and 12")
 
 # # however, I can do the same w/o break, no? I get that break might be useful in other uses, but I don't get what the difference was here
-# x = 1
-# while x%11 != 0 or x%12 != 0:
-#     x = x + 1
-# print (x, "is divisible by 11 and 12")
+x = 1
+while x%11 != 0 or x%12 != 0:
+    x = x + 1
+print (x, "is divisible by 11 and 12")
 
 # # now to the finger exercise
-# counter = 0
-# num = int(input("enter ten integers, one at a time: "))
+counter = 0
+num = int(input("enter ten integers, one at a time: "))
 
-# if num % 2 != 0: # tem como colocar dentro do while loop? não sei. fora é bom que cria uma variável de largada e independente da recursão
-#     answer = num
-# else: answer = "no odd entered"
+if num % 2 != 0: # tem como colocar dentro do while loop? não sei. fora é bom que cria uma variável de largada e independente da recursão
+    answer = num
+else:
+     answer = "no odd entered"
 
-# while counter < 9:
-# 	num = int(input("enter ten integers, one at a time: "))
-# 	if num % 2 != 0 and (type(answer) == str or num > answer): # aqui foi só inverter; se a primeira operação processada é a int > str, erro; se a outra, não
-# 		answer = num
-# 	counter += 1
-# print(answer) # se eu quisse dar uma garibada aqui, incluir uma leading sentence, talvez teria mais um if pra checar o que é answer aqui
+while counter < 9:
+	num = int(input("enter ten integers, one at a time: "))
+	if num % 2 != 0 and (type(answer) is str or num > answer): # aqui foi só inverter; se a primeira operação processada é a int > str, erro; se a outra, não
+		answer = num
+	counter += 1
+print(answer) # se eu quisse dar uma garibada aqui, incluir uma leading sentence, talvez teria mais um if pra checar o que é answer aqui
 
 # finger exercise, p 40: Write a program that prints the sum of the prime numbers greater than 2 and less than 1000. Hint: you probably want to use a for loop that is a primality test
 # nested inside a for loop that iterates over the odd integers between 3 and 999.
@@ -50,18 +51,19 @@
 # variable idea on https://www.geeksforgeeks.org/python/python-program-to-check-whether-a-number-is-prime-or-not/ and that worked. I also got the prime testing formula online, from the same website
 # since I was using a brute force (AND INCOMPLETE, WHICH I REALIZED ON MY OWN) one earlier - e.g., calling specific divisions vs. 3, 5, 7 (incomplete because other numbers, e.g., 121 - 11*11)
 
-# prime_sum = 0
+prime_sum = 0
 
-# for num in range(3, 1000):
-#     is_prime = True           
-#     for x in range(2, int(num**0.5) + 1):
-#         if num % x == 0:
-#             is_prime = False
-#             break
-#     if is_prime == True: prime_sum += num
-#     print(num, is_prime, prime_sum)
+for num in range(3, 1000):
+    is_prime = True           
+    for x in range(2, int(num**0.5) + 1):
+        if num % x == 0:
+            is_prime = False
+            break
+    if is_prime is True:
+         prime_sum += num
+    print(num, is_prime, prime_sum)
 
-# print(prime_sum)
+print(prime_sum)
 
 # ## lecture
 # ##################
@@ -234,10 +236,11 @@ for x in range(N):
 # For ex. if x = 15, it prints 5, 10, and 15.
 # For ex. if x = 14, it prints 5 and 10.
 
-# x = 22
+x = 22
 
-# for num in range(1, x + 1):
-#     if num % 5 == 0: print(f"{num}\n")
+for num in range(1, x + 1):
+    if num % 5 == 0:
+         print(f"{num}\n")
 
 # Practice 2:
 # Declare a variable n that stores an int. Print the sum of all digits
@@ -245,12 +248,12 @@ for x in range(N):
 # when you divide n by 10.
 # For ex. If x = 1234, print 10
 
-# n = 999999
-# digit_sum = 0
+n = 999999
+digit_sum = 0
 
-# for x in str(n): # interessante a solução usando module e floor div de 10, mas muito mais fácil assim
-#     digit_sum += int(x)
-# print(digit_sum)
+for x in str(n): # interessante a solução usando module e floor div de 10, mas muito mais fácil assim
+    digit_sum += int(x)
+print(digit_sum)
 
 #########################################################
 ##################### END AT HOME ###########################

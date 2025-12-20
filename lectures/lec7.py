@@ -5,29 +5,29 @@
 # of approximations to the square root of 25, the cube root of -8, and the fourth root
 # of 16. Use 0.001 as epsilon.
 # VAO: my code here
-# def find_root (x, power, epsilon):
-#     # Find interval containing answer
-#     if x < 0 and power % 2 == 0:
-#         return None # Negative number has no even-powered roots
-#     low = min(-1, x)
-#     high = max(1, x)
-#     # Use biseciton search
-#     ans = (high + low) / 2
-#     while abs(ans ** power - x) >= epsilon:
-#         if ans ** power < x:
-#             low = ans
-#         else:
-#             high = ans
-#         ans = (high + low) / 2
-#     return ans
-# xs = (25, -8, 16)
-# powers = (2, 3, 4)
-# e = 0.001
-# pwr_index = 0 # hah, this works! maybe there's a better way of doing this, but I'm happy as is
-# for x in xs:
-#     answer = find_root(x, powers[pwr_index], e)
-#     print(f"approximate root of {x} on power {powers[pwr_index]} is {answer}")
-#     pwr_index += 1
+def find_root (x, power, epsilon):
+    # Find interval containing answer
+    if x < 0 and power % 2 == 0:
+        return None # Negative number has no even-powered roots
+    low = min(-1, x)
+    high = max(1, x)
+    # Use biseciton search
+    ans = (high + low) / 2
+    while abs(ans ** power - x) >= epsilon:
+        if ans ** power < x:
+            low = ans
+        else:
+            high = ans
+        ans = (high + low) / 2
+    return ans
+xs = (25, -8, 16)
+powers = (2, 3, 4)
+e = 0.001
+pwr_index = 0 # hah, this works! maybe there's a better way of doing this, but I'm happy as is
+for x in xs:
+    answer = find_root(x, powers[pwr_index], e)
+    print(f"approximate root of {x} on power {powers[pwr_index]} is {answer}")
+    pwr_index += 1
 
 # finger exercise, p 69: Write a function is_in that accepts two strings as arguments and returns
 # 'True' if either string occurs anywhere in the other, and 'False' otherwise. Hint: you might want
@@ -84,24 +84,23 @@ for i in ints1:
 # finger exercise, p. 82: Using the algorithm of Figure 3-6, write a function that satisfies the specification
 # def log(x, base, epsilon): "Assumes x and epsilon int or float, base an int, x > 1, epsilon > 0, power >= 1.
 # Returns float y such that base **y is within epsilon of x."
-# Figure 3-6
-# Find lower bound on ans
-# x = input("enter integer: ")
-# epsilon = 0.01
-# lower_bound = 0
-# while 2 ** lower_bound < x:
-#     lower_bound += 1
-# low = lower_bound - 1
-# high = lower_bound + 1
-# # Perform bisection search
-# ans = (high + low) / 2
-# while abs(2 ** ans - x) >= epsilon:
-#     if 2 ** ans < x:
-#         low = ans
-#     else:
-#         high = ans
-#     ans = (high + low) / 2
-# print(ans, "is close to the log base 2 of", x)
+# Figure 3-6, find lower bound on ans
+x = int(input("enter integer: "))
+epsilon = 0.01
+lower_bound = 0
+while 2 ** lower_bound < x:
+    lower_bound += 1
+low = lower_bound - 1
+high = lower_bound + 1
+# Perform bisection search
+ans = (high + low) / 2
+while abs(2 ** ans - x) >= epsilon:
+    if 2 ** ans < x:
+        low = ans
+    else:
+        high = ans
+    ans = (high + low) / 2
+print(ans, "is close to the log base 2 of", x)
 
 # VAO: my code here
 def log(x, base, epsilon):
@@ -207,13 +206,25 @@ print(div_by(195,13))   # returns True
 
 
 # ############## YOU TRY IT ###################
-# # Write code that satisfies the following specification:
-# # Hint, use paper and pen for a strategy before coding!
-# def is_palindrome(s):
-#     """ s is a string
-#     Returns True if s is a palindrome and False otherwise
-#     """
-#     # your code here
+# Write code that satisfies the following specification:
+# Hint, use paper and pen for a strategy before coding!
+# VAO: my code
+def is_palindrome(s):
+    """ s is a string
+    Returns True if s is a palindrome and False otherwise
+    """
+    # your code here
+    inv_s = ""
+    for c in range(len(s) - 1, 0 - 1, -1): # the 0-1 is meant to capture the first char, but is there another way?
+        inv_s += s[c] # I assembled the inverted string and then compared; suggested answer checks by letter
+    # print(inv_s) # testing
+    if s == inv_s:
+        return True
+    else:
+        return False
+strings = "abcdef", "ovovovovo", "ovovovovo2"
+for s in strings:
+    is_palindrome(s)
 
 # ################################################
 
@@ -227,13 +238,21 @@ print(div_by(195,13))   # returns True
 #         of word in the order they appear
 #     """
 #     # your code here
-
+# VAO: my code
+def keep_consonants(word):
+    vowels = "aeiou"
+    c_string =""
+    for c in word:
+        if c not in vowels:
+            c_string += c
+    return c_string
+words = "abcdef", "abefijopuv", "aaeeixioouu"
+for word in words:
+    keep_consonants(word)
 # # For example
-# # print(keep_consonants("abcd"))  # prints bcd
-# # print(keep_consonants("aaa"))  # prints an empty string
-# # print(keep_consonants("babas"))  # prints bbs
-
-
+print(keep_consonants("abcd"))  # prints bcd
+print(keep_consonants("aaa"))  # prints an empty string
+print(keep_consonants("babas"))  # prints bbs
 
 # # 2. Write code that satisfies the following specs:
 # def first_to_last_diff(s, c):
@@ -243,12 +262,38 @@ print(div_by(195,13))   # returns True
 #         occur in s, returns -1. 
 #     """
 #     # your code here
+# VAO: my code
+def first_to_last_diff(s, c):
+    first = None # can't be 0 because index starts at zero
+    last = 0
+    # count = 0 # I forgot that "for i in range" would iterate over indexes and not chars 
+    # while count < len(s): # <= would exceed length
+    #     if s[count] == c:
+    #         if first == 0:
+    #             first = count
+    #         else:
+    #             last = count
+    #     count += 1
+    # if first == 0 and last == 0: # easier to just "if c not in s"
+    #     return -1
+    # else:
+    #     return int(last) - int (first)
+    
+# VAO: better code, now using for, after going over the suggested answer (but not just copying it)
+    if c not in s:
+        return -1
+    for i in range(len(s)): # because of range(len()), i doesn't iterate over chars, but over index
+        if s[i] == c: # suggested answer breaks now, because "i" will have been assigned its value already
+            if first is None:
+                first = i
+            else:
+                last = i
+    return last - first
 
 # # For example
-# # print(first_to_last_diff('aaaa', 'a'))  # prints 3
-# # print(first_to_last_diff('abcabcabc', 'b'))  # prints 6
-# # print(first_to_last_diff('abcabcabc', 'b'))  # prints -1
-
+print(first_to_last_diff('aaaa', 'a'))  # prints 3
+print(first_to_last_diff('abcabcabc', 'b'))  # prints 6
+print(first_to_last_diff('abcabcabc', 'd'))  # prints -1
 
 # ################################################
 # ################################################
@@ -344,7 +389,3 @@ print(div_by(195,13))   # returns True
 # ################################################
 # ################################################
 # ################################################
-
-
-
-

@@ -8,51 +8,51 @@
 
 # Newton-Raphson for square root
 # Find X such that x**2 - 24 is within an epsilon of 0
-# k = int(input("enter an integer to find out its approximation root: "))
-# epsilon = 0.01
-# guess = k / 2
-# counter_NR = 0
-# while abs(guess ** 2 - k) >= epsilon:
-#     guess = guess - ((guess ** 2 - k) / (2 * guess))
-#     counter_NR += 1
-# print(f"square root of {k} is about {guess}. This took {counter_NR} iterations.")
+k = int(input("enter an integer to find out its approximation root: "))
+epsilon = 0.01
+guess = k / 2
+counter_NR = 0
+while abs(guess ** 2 - k) >= epsilon:
+    guess = guess - ((guess ** 2 - k) / (2 * guess))
+    counter_NR += 1
+print(f"square root of {k} is about {guess}. This took {counter_NR} iterations.")
 
 # # now bisection search
-# bs_low = 0.0
-# bs_high = k
-# bs_guess = (bs_high + bs_low) / 2
-# counter_BS = 0
-# while abs(bs_guess ** 2 - k) >= epsilon:
-#     print(bs_high, bs_low, bs_guess)
-#     if bs_guess ** 2 < k:
-#         bs_low = bs_guess
-#     else:
-#         bs_high = bs_guess
-#     bs_guess = (bs_high + bs_low) / 2
-#     counter_BS += 1
-# print(f"square root of {k} is about {bs_guess}. This took {counter_BS} iterations.")
+bs_low = 0.0
+bs_high = k
+bs_guess = (bs_high + bs_low) / 2
+counter_BS = 0
+while abs(bs_guess ** 2 - k) >= epsilon:
+    print(bs_high, bs_low, bs_guess)
+    if bs_guess ** 2 < k:
+        bs_low = bs_guess
+    else:
+        bs_high = bs_guess
+    bs_guess = (bs_high + bs_low) / 2
+    counter_BS += 1
+print(f"square root of {k} is about {bs_guess}. This took {counter_BS} iterations.")
 
 # Recall the approximation method code to find the square root
-# x = 54321
-# epsilon = 1 # try reducing or increasing
-# num_guesses = 0
-# guess = 0.0
-# increment = 0.00001   # try it with 0.00001
-# while abs(guess**2 - x) >= epsilon and guess**2 <= x:
-#     # abs(guess**2 - x) >= epsilon finds a "good enough" answer
-#     # guess**2 <= x ensures we stop looking when the guess becomes unreasonable
-#     guess += increment
-#     num_guesses += 1
-# print(f'num_guesses = {num_guesses}')
+x = 54321
+epsilon = 1 # try reducing or increasing
+num_guesses = 0
+guess = 0.0
+increment = 0.00001   # try it with 0.00001
+while abs(guess**2 - x) >= epsilon and guess**2 <= x:
+    # abs(guess**2 - x) >= epsilon finds a "good enough" answer
+    # guess**2 <= x ensures we stop looking when the guess becomes unreasonable
+    guess += increment
+    num_guesses += 1
+print(f'num_guesses = {num_guesses}')
 
 # # this "if" is for the case when we stopped the loop due to an unreasonable guess
-# if abs(guess**2 - x) >= epsilon:
-#     print(f'Failed on square root of {x}')
-#     print(f'Last guess was {guess}')
-#     print(f'Last guess squared is {guess*guess}')
+if abs(guess**2 - x) >= epsilon:
+    print(f'Failed on square root of {x}')
+    print(f'Last guess was {guess}')
+    print(f'Last guess squared is {guess*guess}')
 # # this "else" is for the case when we stopped the loop due to being within epsilon of x
-# else:
-#     print(f'{guess} is close to square root of {x}')
+else:
+    print(f'{guess} is close to square root of {x}')
 
 
 #####################
@@ -81,23 +81,23 @@
 
 
 ############### YOU TRY IT ###################
-# x = 0.5
-# epsilon = 0.01
-# # choose the low endpoint
-# low = x # VAO: low at 0.5 and high at 1 seems to work
-# # choose the high endpopint
-# high = 1
+x = 0.5
+epsilon = 0.01
+# choose the low endpoint
+low = x # VAO: low at 0.5 and high at 1 seems to work
+# choose the high endpopint
+high = 1
 
-# guess = (high + low)/2
+guess = (high + low)/2
 
-# while abs(guess**2 - x) >= epsilon:
-#     print(f'low = {str(low)} high = {str(high)} guess = {str(guess)}') # VAO: doesn't need str()
-#     if guess**2 < x:
-#         low = guess
-#     else:
-#         high = guess
-#     guess = (high + low)/2.0
-# print(f'{str(guess)} is close to square root of {str(x)}')
+while abs(guess**2 - x) >= epsilon:
+    print(f'low = {str(low)} high = {str(high)} guess = {str(guess)}') # VAO: doesn't need str()
+    if guess**2 < x:
+        low = guess
+    else:
+        high = guess
+    guess = (high + low)/2.0
+print(f'{str(guess)} is close to square root of {str(x)}')
 
 #####################################################
 
@@ -129,43 +129,43 @@
 # Write code to use bisection search to find the cube 
 # root of positive cubes to within some epsilon
 
-# cube = 27
-# epsilon = 0.01
-# low = 0
-# high = cube
+cube = 27
+epsilon = 0.01
+low = 0
+high = cube
 
-# # your code here
-# guess = (low + high) / 2
-# while abs(guess ** 3 - cube) > epsilon:
-#     if guess ** 3 > cube:
-#         high = guess
-#     else:
-#         low = guess
-#     guess = (low + high) / 2
-# print(f"{guess} is close to the cube root of {cube}")
+# your code here
+guess = (low + high) / 2
+while abs(guess ** 3 - cube) > epsilon:
+    if guess ** 3 > cube:
+        high = guess
+    else:
+        low = guess
+    guess = (low + high) / 2
+print(f"{guess} is close to the cube root of {cube}")
 
 #####################################################
 
 
 ######## Cube root for all cubes ############
-# cube = -27
-# neg = False
-# if cube < 0:
-#     neg = True
-# cube = abs(cube)
-# epsilon = 0.01
-# low = 0
-# high = cube
-# guess = (high + low)/2.0
-# while abs(guess**3 - cube) >= epsilon:
-#     if guess**3 < cube :
-#         low = guess
-#     else:
-#         high = guess
-#     guess = (high + low)/2.0
-# if neg == True:
-#     guess = -guess
-# print(f'{guess} is close to the cube root of {cube}')
+cube = -27
+neg = False
+if cube < 0:
+    neg = True
+cube = abs(cube)
+epsilon = 0.01
+low = 0
+high = cube
+guess = (high + low)/2.0
+while abs(guess**3 - cube) >= epsilon:
+    if guess**3 < cube :
+        low = guess
+    else:
+        high = guess
+    guess = (high + low)/2.0
+if neg is True:
+    guess = -guess
+print(f'{guess} is close to the cube root of {cube}')
 
 
 ########################

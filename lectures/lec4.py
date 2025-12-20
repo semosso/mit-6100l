@@ -3,77 +3,78 @@
 # ##################
 
 # p 45: Find the cube root of a perfect cube
-# x = int(input("Enter an integer: "))
-# ans = 0
-# while ans**3 < abs(x):
-#     ans = ans + 1
-# if ans**3 != abs(x):
-#     print(x, "is not a perfect cube")
-# else:
-#     if x < 0:
-#         ans = -ans
-#     print ("Cube root of", x, "is", ans)
+x = int(input("Enter an integer: "))
+ans = 0
+while ans**3 < abs(x):
+    ans = ans + 1
+if ans**3 != abs(x):
+    print(x, "is not a perfect cube")
+else:
+    if x < 0:
+        ans = -ans
+    print ("Cube root of", x, "is", ans)
 
 # # p 48: Test if an int > 2 is prime. If not, print smallest divisor
-# x = int(input("Enter an integer greater than 2: "))
-# smallest_divisor = None
-# for guess in range (2, x):
-#     if x%guess == 0:
-#         smallest_divisor = guess
-#         break
-# if smallest_divisor != None:
-#     print("Smallest divisor of", x, "is", smallest_divisor)
-# else:
-#     print(x, "is a prime number")
+x = int(input("Enter an integer greater than 2: "))
+smallest_divisor = None
+for guess in range (2, x):
+    if x%guess == 0:
+        smallest_divisor = guess
+        break
+if smallest_divisor is not None:
+    print("Smallest divisor of", x, "is", smallest_divisor)
+else:
+    print(x, "is a prime number")
 
 # p 49, finger exercise: Change the code above so that it returns the largest rather than the smallest divisor.
-# x = int(input("Enter an integer greater than 2: "))
-# largest_divisor = None
-# for guess in range (2, x):
-#     if x % guess == 0:
-#         largest_divisor = x // guess
-#         break
-# if largest_divisor != None:
-#     print("Largest divisor of", x, "is", largest_divisor)
-# else:
-#     print(x, "is a prime number")
+x = int(input("Enter an integer greater than 2: "))
+largest_divisor = None
+for guess in range (2, x):
+    if x % guess == 0:
+        largest_divisor = x // guess
+        break
+if largest_divisor is not None:
+    print("Largest divisor of", x, "is", largest_divisor)
+else:
+    print(x, "is a prime number")
 
 # p 49, finger exercise: Write a program that asks the user to enter an integer and prints two integers, root and pwr, such that 1 < pwr < 6
 # and root**pwr is equal to the integer entered by the user. If no such pair of integer exists, it should print a message to that effect.
-# x = int(input("Enter an integer: "))
-# for pwr in range(2, 6):
-#     root = 0 # you need this reset, so that each loop starts at zero! otherwise, the second loop inherits the final value of root under the previous while loop
-#     while root ** pwr < abs(x):
-#         root += 1
-#     if root ** pwr != abs(x):
-#         print(f"there's no root of {x} for power {pwr}")
-#     else:
-#         print(f"for power {pwr}, {root} is the root")
+x = int(input("Enter an integer: "))
+for pwr in range(2, 6):
+    root = 0 # you need this reset, so that each loop starts at zero! otherwise, the second loop inherits the final value of root under the previous while loop
+    while root ** pwr < abs(x):
+        root += 1
+    if root ** pwr != abs(x):
+        print(f"there's no root of {x} for power {pwr}")
+    else:
+        print(f"for power {pwr}, {root} is the root")
 
 # p 50, finger exercise: Write a program that prints the sum of the prime numbers greater than 2 and less than 1000.
 # Já rolou o mesmo pedido na lec3.py, ficou assim:
-# prime_sum = 0
-# for num in range(3, 1000):
-#     is_prime = True           
-#     for x in range(2, int(num**0.5) + 1):
-#         if num % x == 0:
-#             is_prime = False
-#             break
-#     if is_prime == True: prime_sum += num
-#     print(num, is_prime, prime_sum)
-# print(prime_sum)
+prime_sum = 0
+for num in range(3, 1000):
+    is_prime = True           
+    for x in range(2, int(num**0.5) + 1):
+        if num % x == 0:
+            is_prime = False
+            break
+    if is_prime is True:
+        prime_sum += num
+    print(num, is_prime, prime_sum)
+print(prime_sum)
 
 # Testando de outra forma, essencialmente mudando o prime validity test e simplificando tirando os números pares da iteração:
-# prime_sum = 0
-# for num in range (3, 1000, 2):
-#     is_prime = True
-#     for x in range (3, num, 2): # not num  - 1 , but num, because range excludes the last value
-#         if num % x == 0:
-#             is_prime = False
-#             break
-#     if is_prime == True:
-#         prime_sum += num
-#     print(f"Is {num} prime? {is_prime}. Sum of primes so far is {prime_sum}")
+prime_sum = 0
+for num in range (3, 1000, 2):
+    is_prime = True
+    for x in range (3, num, 2): # not num  - 1 , but num, because range excludes the last value
+        if num % x == 0:
+            is_prime = False
+            break
+    if is_prime is True:
+        prime_sum += num
+    print(f"Is {num} prime? {is_prime}. Sum of primes so far is {prime_sum}")
 
 # a few words about using floats
 # x = 0.0
@@ -100,17 +101,17 @@
 ################ YOU TRY IT ################
 # Write code that loops a for loop over some range 
 # and prints how many even numbers are in that range. Try it with:
-# range(5)
-# range(10)
-# range(2,9,3)
-# range(-4,6,2)
-# range(5,6)
-# how_many = 0
-# for i in range(5):
-#     # your code here
-#     if i % 2 == 0:
-#         how_many += 1
-# print(how_many)
+range(5)
+range(10)
+range(2,9,3)
+range(-4,6,2)
+range(5,6)
+how_many = 0
+for i in range(5):
+    # your code here
+    if i % 2 == 0:
+        how_many += 1
+print(how_many)
 
 
 
@@ -167,12 +168,12 @@
 # s = "abca" Then your code prints 3. 
 
 # your code here
-# s = 'abcdeffedcbaaaaaaaaaa'
-# count_string = ""
-# for i in s:
-#     if i not in count_string:
-#         count_string += i
-# print(len(count_string))
+s = 'abcdeffedcbaaaaaaaaaa'
+count_string = ""
+for i in s:
+    if i not in count_string:
+        count_string += i
+print(len(count_string))
 
 
 
@@ -221,10 +222,10 @@
 # secret value. If it's not found, it doesn't print anything. 
 
 # your code here
-# secret = 4
-# for i in range (1, 11):
-#     if i == secret:
-#         print(f"the secret number is {i}")
+secret = 4
+for i in range (1, 11):
+    if i == secret:
+        print(f"the secret number is {i}")
 
 
 ################################################
@@ -236,28 +237,28 @@
 # secret value. If it's not found, prints that it didn't find it. 
 
 # your code here   
-# secret = 7
-# found = False
-# for i in range (1, 11):
-#     if i == secret:
-#         num_found = i # no need to extract this if the print is inserted here, which we can do because we're breaking; see below
-#         found = True
-#         break
-# if found == True:
-#     print(f"secret number is {num_found}")
-# else:
-#     print("secret number not found")
+secret = 7
+found = False
+for i in range (1, 11):
+    if i == secret:
+        num_found = i # no need to extract this if the print is inserted here, which we can do because we're breaking; see below
+        found = True
+        break
+if found is True:
+    print(f"secret number is {num_found}")
+else:
+    print("secret number not found")
 
 # # or even simpler, based on how it was structured in the lecture
-# secret = 12
-# found = False
-# for i in range (1, 11):
-#     if i == secret:
-#         found = True
-#         print(f"secret number is {i}")
-#         break
-# if not found: # não pode ser um else:  do if acima senão é acionado toda vez que o segredo não for encontrado; é algo testado depois que o for loop conclui
-#     print("secret number not found")
+secret = 12
+found = False
+for i in range (1, 11):
+    if i == secret:
+        found = True
+        print(f"secret number is {i}")
+        break
+if not found: # não pode ser um else:  do if acima senão é acionado toda vez que o segredo não for encontrado; é algo testado depois que o for loop conclui
+    print("secret number not found")
 
 
 ####################################################
@@ -432,32 +433,32 @@ print(result)
 # text2 = "revenge of the sixth"
 # Hint, start to write your code with a smaller example, then test it on the above text.
 
-# text1 = "abcdef"
-# text2 = "defghi"
-# # your code here
-# unique = ""
-# for c in text1 + text2: # why does this feel like cheating? e.g., I should have created a nested loop or something
-#     if c in text1 and c in text2 and c not in unique:
-#         unique += c
-# print(f"{len(unique)} unique common characters:", unique)
+text1 = "abcdef"
+text2 = "defghi"
+# your code here
+unique = ""
+for c in text1 + text2: # why does this feel like cheating? e.g., I should have created a nested loop or something
+    if c in text1 and c in text2 and c not in unique:
+        unique += c
+print(f"{len(unique)} unique common characters:", unique)
 
 # finger exercise: Assume you are given a positive integer variable named `N`. Write a piece of Python code that finds the cube root of `N`.
 # The code prints the cube root if `N` is a perfect cube or it prints `error` if `N` is not a perfect cube.
 # Hint: use a loop that increments a counter—you decide when the counter should stop.
 
-# N = int(input("Enter a positive integer: "))
-# guess = 1
-# # with while()
-# # while guess**3 < N:
-# #     guess += 1
-# # with for()
-# for guess in range(N + 1):
-#     if guess**3 >= N:
-#         break
-# if guess**3 == N:
-#     print(f"{guess} is the cube root of {N}")
-# else:
-#     print(f"error, {N} is not a perfect cube")
+N = int(input("Enter a positive integer: "))
+guess = 1
+# with while()
+# while guess**3 < N:
+#     guess += 1
+# with for()
+for guess in range(N + 1):
+    if guess**3 >= N:
+        break
+if guess**3 == N:
+    print(f"{guess} is the cube root of {N}")
+else:
+    print(f"error, {N} is not a perfect cube")
 
 ####################################################
 ##################### END AT HOME ######################
