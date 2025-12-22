@@ -5,43 +5,53 @@
 # of approximations to the square root of 25, the cube root of -8, and the fourth root
 # of 16. Use 0.001 as epsilon.
 # VAO: my code here
-def find_root (x, power, epsilon):
+def find_root(x, power, epsilon):
     # Find interval containing answer
     if x < 0 and power % 2 == 0:
-        return None # Negative number has no even-powered roots
+        return None  # Negative number has no even-powered roots
     low = min(-1, x)
     high = max(1, x)
     # Use biseciton search
     ans = (high + low) / 2
-    while abs(ans ** power - x) >= epsilon:
-        if ans ** power < x:
+    while abs(ans**power - x) >= epsilon:
+        if ans**power < x:
             low = ans
         else:
             high = ans
         ans = (high + low) / 2
     return ans
+
+
 xs = (25, -8, 16)
 powers = (2, 3, 4)
 e = 0.001
-pwr_index = 0 # hah, this works! maybe there's a better way of doing this, but I'm happy as is
+pwr_index = (
+    0  # hah, this works! maybe there's a better way of doing this, but I'm happy as is
+)
 for x in xs:
     answer = find_root(x, powers[pwr_index], e)
     print(f"approximate root of {x} on power {powers[pwr_index]} is {answer}")
     pwr_index += 1
+
 
 # finger exercise, p 69: Write a function is_in that accepts two strings as arguments and returns
 # 'True' if either string occurs anywhere in the other, and 'False' otherwise. Hint: you might want
 # to use the built-in 'str' operator 'in'.
 # VAO: my code here
 def is_in(str1, str2):
-    if str1 in str2 or str2 in str1: # I understand the prompt to be "if the entire string occurs", not only part of it
-                                     # i.e., so this works. If it's meant to be partial matches, then it needs a loop
+    if (
+        str1 in str2 or str2 in str1
+    ):  # I understand the prompt to be "if the entire string occurs", not only part of it
+        # i.e., so this works. If it's meant to be partial matches, then it needs a loop
         return True
     else:
         return None
+
+
 # string1 = str(input("enter the first string: "))
 # string2 = str(input("enter the second string: "))
 # print(is_in(string1, string2))
+
 
 # finger exercise, p 69: Write a function to test 'is_in'.
 # VAO: my code here
@@ -61,19 +71,25 @@ def test_is_in(strs1, strs2):
                     test = "oops"
             print(s1, s2, result, test)
 
+
 string1 = ("abc", "jkl", "ghi")
 string2 = ("jkl", "mno", "abc")
 test_is_in(string1, string2)
+
 
 # finger exercise , p 72: Write a function 'mult' that accepts either one or two ints as arguments. If called
 # with two arguments, the function prints the product of the two arguments. If called with one argument, it prints
 # that argument.
 # VAO: my code here
-def mult(int1, int2 = None): # I had it as false at first, but then changing it to true doesn't assign any value
+def mult(
+    int1, int2=None
+):  # I had it as false at first, but then changing it to true doesn't assign any value
     if int2 is not None:
         print(int1 * int2)
     else:
         print(int1)
+
+
 # now testing it
 ints1 = (0, 1, 2, 3, 4, 5)
 ints2 = (None, 5, None, 8, None, 17)
@@ -88,35 +104,38 @@ for i in ints1:
 x = int(input("enter integer: "))
 epsilon = 0.01
 lower_bound = 0
-while 2 ** lower_bound < x:
+while 2**lower_bound < x:
     lower_bound += 1
 low = lower_bound - 1
 high = lower_bound + 1
 # Perform bisection search
 ans = (high + low) / 2
-while abs(2 ** ans - x) >= epsilon:
-    if 2 ** ans < x:
+while abs(2**ans - x) >= epsilon:
+    if 2**ans < x:
         low = ans
     else:
         high = ans
     ans = (high + low) / 2
 print(ans, "is close to the log base 2 of", x)
 
+
 # VAO: my code here
 def log(x, base, epsilon):
     lower_bound = 0
-    while base ** lower_bound < x:
+    while base**lower_bound < x:
         lower_bound += 1
     low = lower_bound - 1
     high = lower_bound + 1
     ans = (high + low) / 2
-    while abs(base ** ans - x) >= epsilon:
-        if base ** ans < x:
+    while abs(base**ans - x) >= epsilon:
+        if base**ans < x:
             low = ans
         else:
             high = ans
         ans = (high + low) / 2
     print(ans, "is close to the log base", base, "of", x)
+
+
 # testing
 bases = (2, 3, 5)
 xs = (10, 20, 30)
@@ -133,7 +152,7 @@ for b in bases:
 # ###########################
 # #A very simple example of a function that has one
 # #argument and returns one value
-# def is_even(i):   
+# def is_even(i):
 #     """Assumes: i, a positive int
 #     Returns True if i is even, otherwise False"""
 #     if i%2 == 0:
@@ -148,20 +167,20 @@ for b in bases:
 # # print(is_even(8)) # <- prints True
 
 
-
 # ############## YOU TRY IT ###################
 # # Write code that satisfies the following specification:
 def div_by(n, d):
-#     """ n and d are ints > 0
-#         Returns True if d divides n evenly and False otherwise 
-#     """
-#     # your code here
-      # VAO: my code
+    #     """ n and d are ints > 0
+    #         Returns True if d divides n evenly and False otherwise
+    #     """
+    #     # your code here
+    # VAO: my code
     return n % d == 0
 
-# # For example: 
-print(div_by(10,3))     # print False
-print(div_by(195,13))   # returns True
+
+# # For example:
+print(div_by(10, 3))  # print False
+print(div_by(195, 13))  # returns True
 
 # ##############################################
 
@@ -173,7 +192,6 @@ print(div_by(195,13))   # returns True
 # #         print(i, "even")
 # #     else:
 # #         print(i, "odd")
-
 
 
 # ###########################
@@ -188,8 +206,8 @@ print(div_by(195,13))   # returns True
 #             print(i, sum_of_odds)
 #     return sum_of_odds
 
-# # print(sum_odd(2,4)) 
-# # print(sum_odd(2,7)) 
+# # print(sum_odd(2,4))
+# # print(sum_odd(2,7))
 
 # # # with a while loop
 # def sum_odd(a, b):
@@ -201,8 +219,8 @@ print(div_by(195,13))   # returns True
 #         i += 1
 #     return sum_of_odds
 
-# # print(sum_odd(2,4)) 
-# # print(sum_odd(2,7)) 
+# # print(sum_odd(2,4))
+# # print(sum_odd(2,7))
 
 
 # ############## YOU TRY IT ###################
@@ -210,23 +228,30 @@ print(div_by(195,13))   # returns True
 # Hint, use paper and pen for a strategy before coding!
 # VAO: my code
 def is_palindrome(s):
-    """ s is a string
+    """s is a string
     Returns True if s is a palindrome and False otherwise
     """
     # your code here
     inv_s = ""
-    for c in range(len(s) - 1, 0 - 1, -1): # the 0-1 is meant to capture the first char, but is there another way?
-        inv_s += s[c] # I assembled the inverted string and then compared; suggested answer checks by letter
+    for c in range(
+        len(s) - 1, 0 - 1, -1
+    ):  # the 0-1 is meant to capture the first char, but is there another way?
+        inv_s += s[
+            c
+        ]  # I assembled the inverted string and then compared; suggested answer checks by letter
     # print(inv_s) # testing
     if s == inv_s:
         return True
     else:
         return False
+
+
 strings = "abcdef", "ovovovovo", "ovovovovo2"
 for s in strings:
     is_palindrome(s)
 
 # ################################################
+
 
 # ################################################
 # ################ YOU TRY IT AT HOME #####################
@@ -234,18 +259,20 @@ for s in strings:
 # # 1. Write code that satisfies the following specs:
 # def keep_consonants(word):
 #     """ word is a string of lowercase letters
-#         Returns a string containing only the consonants 
+#         Returns a string containing only the consonants
 #         of word in the order they appear
 #     """
 #     # your code here
 # VAO: my code
 def keep_consonants(word):
     vowels = "aeiou"
-    c_string =""
+    c_string = ""
     for c in word:
         if c not in vowels:
             c_string += c
     return c_string
+
+
 words = "abcdef", "abefijopuv", "aaeeixioouu"
 for word in words:
     keep_consonants(word)
@@ -254,19 +281,20 @@ print(keep_consonants("abcd"))  # prints bcd
 print(keep_consonants("aaa"))  # prints an empty string
 print(keep_consonants("babas"))  # prints bbs
 
+
 # # 2. Write code that satisfies the following specs:
 # def first_to_last_diff(s, c):
 #     """ s is a string, c is single character string
 #         Returns the difference between the index where c first
-#         occurs and the index where c last occurs. If c does not 
-#         occur in s, returns -1. 
+#         occurs and the index where c last occurs. If c does not
+#         occur in s, returns -1.
 #     """
 #     # your code here
 # VAO: my code
 def first_to_last_diff(s, c):
-    first = None # can't be 0 because index starts at zero
+    first = None  # can't be 0 because index starts at zero
     last = 0
-    # count = 0 # I forgot that "for i in range" would iterate over indexes and not chars 
+    # count = 0 # I forgot that "for i in range" would iterate over indexes and not chars
     # while count < len(s): # <= would exceed length
     #     if s[count] == c:
     #         if first == 0:
@@ -278,22 +306,27 @@ def first_to_last_diff(s, c):
     #     return -1
     # else:
     #     return int(last) - int (first)
-    
-# VAO: better code, now using for, after going over the suggested answer (but not just copying it)
+
+    # VAO: better code, now using for, after going over the suggested answer (but not just copying it)
     if c not in s:
         return -1
-    for i in range(len(s)): # because of range(len()), i doesn't iterate over chars, but over index
-        if s[i] == c: # suggested answer breaks now, because "i" will have been assigned its value already
+    for i in range(
+        len(s)
+    ):  # because of range(len()), i doesn't iterate over chars, but over index
+        if (
+            s[i] == c
+        ):  # suggested answer breaks now, because "i" will have been assigned its value already
             if first is None:
                 first = i
             else:
                 last = i
     return last - first
 
+
 # # For example
-print(first_to_last_diff('aaaa', 'a'))  # prints 3
-print(first_to_last_diff('abcabcabc', 'b'))  # prints 6
-print(first_to_last_diff('abcabcabc', 'd'))  # prints -1
+print(first_to_last_diff("aaaa", "a"))  # prints 3
+print(first_to_last_diff("abcabcabc", "b"))  # prints 6
+print(first_to_last_diff("abcabcabc", "d"))  # prints -1
 
 # ################################################
 # ################################################
@@ -304,7 +337,7 @@ print(first_to_last_diff('abcabcabc', 'd'))  # prints -1
 # ################################################
 # # def div_by(n, d):
 # #     """ n and d are ints > 0
-# #         Returns True if d divides n evenly and False otherwise 
+# #         Returns True if d divides n evenly and False otherwise
 # #     """
 # #     # your code here
 # #     # one way
@@ -312,11 +345,11 @@ print(first_to_last_diff('abcabcabc', 'd'))  # prints -1
 # #         return True
 # #     else:
 # #         return False
-# #     # another way: 
+# #     # another way:
 # #     # return n%d==0
-    
-# # print(div_by(10,3))    
-# # print(div_by(195,13))    
+
+# # print(div_by(10,3))
+# # print(div_by(195,13))
 
 
 # # def is_palindrome(s):
@@ -327,7 +360,7 @@ print(first_to_last_diff('abcabcabc', 'd'))  # prints -1
 # #     for i in range(len(s)//2):
 # #         if s[i] != s[len(s)-i-1]:
 # #             return False
-# #     return True        
+# #     return True
 
 # # s="2222"
 # # print(is_palindrome(s))
@@ -344,7 +377,7 @@ print(first_to_last_diff('abcabcabc', 'd'))  # prints -1
 # ################################################
 # def keep_consonants(word):
 #     """ word is a string of lowercase letters
-#         Returns a string containing only the consonants 
+#         Returns a string containing only the consonants
 #         of word in the order they appear
 #     """
 #     vowels = "aeiou"
@@ -363,8 +396,8 @@ print(first_to_last_diff('abcabcabc', 'd'))  # prints -1
 # def first_to_last_diff(s, c):
 #     """ s is a string, c is single character string
 #         Returns the difference between the index where c first
-#         occurs and the index where c last occurs. If c does not 
-#         occur in s, returns -1. 
+#         occurs and the index where c last occurs. If c does not
+#         occur in s, returns -1.
 #     """
 #     if c not in s:
 #         return -1
@@ -381,11 +414,46 @@ print(first_to_last_diff('abcabcabc', 'd'))  # prints -1
 #     # this return is ok becasue the loops iterated through indices not chars of s
 #     return j-i
 
+
 # # For example
 # # print(first_to_last_diff('aaaa', 'a'))  # prints 3
 # # print(first_to_last_diff('abcabcabc', 'b'))  # prints 6
 # # print(first_to_last_diff('xyz', 'b'))  # prints -1
+# ################################################
+# ################################################
+# ################################################
+# Finger Exercise 1: Implement the function that meets the specifications below:
+def eval_quadratic(a, b, c, x):
+    """
+    a, b, c: numerical values for the coefficients of a quadratic equation
+    x: numerical value at which to evaluate the quadratic.
+    Returns the value of the quadratic a×x² + b×x + c.
+    """
+    # Your code here
+    return a * (x**2) + b * x + c
 
-# ################################################
-# ################################################
-# ################################################
+
+# Examples:
+print(eval_quadratic(1, 1, 1, 1))  # prints 3
+print(eval_quadratic(1, 2, 3, 4))  # prints 27
+
+
+# Finger Exercise 2: Implement the function that meets the specifications below:
+def two_quadratics(a1, b1, c1, x1, a2, b2, c2, x2):
+    """
+    a1, b1, c1: one set of coefficients of a quadratic equation
+    a2, b2, c2: another set of coefficients of a quadratic equation
+    x1, x2: values at which to evaluate the quadratics
+    Evaluates one quadratic with coefficients a1, b1, c1, at x1.
+    Evaluates another quadratic with coefficients a2, b2, c2, at x2.
+    Prints the sum of the two evaluations. Does not return anything.
+    """
+    # Your code here
+    print(eval_quadratic(a1, b1, c1, x1) + eval_quadratic(a2, b2, c2, x2))
+
+
+# Examples:
+two_quadratics(1, 1, 1, 1, 1, 1, 1, 1)  # prints 6
+print(two_quadratics(1, 1, 1, 1, 1, 1, 1, 1))  # prints 6 then None
+# VAO: print() evaluates to None, as there is no return
+# the printed 6 is the internal print() from the function
