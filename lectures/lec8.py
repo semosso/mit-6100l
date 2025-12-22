@@ -299,9 +299,10 @@ def apply(criteria, n):
     (i.e. return True when criteria is applied to them)
     """
     # your code here
+    # VAO: my code
     count = 0
     for num in range(n + 1):
-        if criteria(num):
+        if criteria(num):  # i.e., if True
             count += 1
     return count
 
@@ -312,6 +313,7 @@ def is_even(x):
 
 how_many = apply(is_even, 10)
 print(how_many)
+# # print(apply(lambda x: x==5, 100)) # will print 1, only one match between 0 and 100
 
 
 # ############## YOU TRY IT ###############
@@ -319,19 +321,27 @@ print(how_many)
 # # parameters (each takes in an int and returns a float).
 # # It applies both functions to numbers between 0 and n (inclusive)
 # # and returns the maximum value of all outcomes.
+def max_of_both(n, f1, f2):
+    """n is an int
+        f1 and f2 are functions that take in an int and return a float
+    Applies f1 and f2 on all numbers between 0 and n (inclusive).
+    Returns the maximum value of all these results.
+    """
+    # your code here
+    # VAO: my code
+    max_num = max(f1(0), f2(0))
+    for num in range(1, n + 1):
+        # num1, num2 = f1(num), f2(num) # don't really need this
+        max_val = max(f1(num), f2(num))
+        if max_val > max_num:
+            max_num = max_val
+    return max_num
 
 
-# def max_of_both(n, f1, f2):
-#     """n is an int
-#         f1 and f2 are functions that take in an int and return a float
-#     Applies f1 and f2 on all numbers between 0 and n (inclusive).
-#     Returns the maximum value of all these results.
-#     """
-#     # your code here
-
-
-# # print(max_of_both(2, lambda x:x-1, lambda x:x+1))  # prints 3
-# # print(max_of_both(10, lambda x:x*2, lambda x:x/2))  # prints 20
+# f1 returns, with n = 2: -1, 0, 1; with n = 10: 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
+print(max_of_both(2, lambda x: x - 1, lambda x: x + 1))  # prints 3
+# f2 returns, with n = 2: 1, 2, 3; with n = 10: 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 (approx because of float)
+print(max_of_both(10, lambda x: x * 2, lambda x: x / 2))  # prints 20
 
 
 # ################################
@@ -385,45 +395,60 @@ print(how_many)
 # ###################################
 
 
-# def is_palindrome(s):
-#     """s is a string
-#     Returns True if s is a palnidrome and False otherwise.
-#     A palindrome is a string that contains the same
-#     sequence of characters forward and backward"""
-#     # your code here
+def is_palindrome(s):
+    """s is a string
+    Returns True if s is a palindrome and False otherwise.
+    A palindrome is a string that contains the same
+    sequence of characters forward and backward"""
+    # your code here
+    # VAO: my code
+    # return s == s[::-1] # why does this feel like cheating?
+    # now with the loop that I assume is expected
+    for char in range(len(s)):
+        if s[char] != s[len(s) - 1 - char]:
+            return False
+    return True
 
 
-# # For example:
-# # print(is_palindrome("222"))   # prints True
-# # print(is_palindrome("2222"))   # prints True
-# # print(is_palindrome("abc"))   # prints False
+# For example:
+# print(is_palindrome("222"))   # prints True
+# print(is_palindrome("2222"))   # prints True
+# print(is_palindrome("abc"))   # prints False
 
 
-# def f_yields_palindrome(n, f):
-#     """n is a positive int
-#         f is a function that takes in an int and returns an int
-#     Returns True if applying f on n returns a number that is a
-#     palindrome and False otherwise."""
-#     # your code here
+def f_yields_palindrome(n, f):
+    """n is a positive int
+        f is a function that takes in an int and returns an int
+    Returns True if applying f on n returns a number that is a
+    palindrome and False otherwise."""
+    # your code here
+    # VAO: my code
+    # return str(f(n)) == str(f(n))[::-1] # again, feels like cheating
+    # now with the loop I assume is expected
+    s = f(n)
+    return is_palindrome(
+        str(s)
+    )  # the trick here is when to convert to string, which is the required input for the function
+    # cannot convert it before f(n) is called because they require an integer as input
 
 
-# # For example:
-# def f(x):
-#     return x + 1
+# For example:
+def f(x):
+    return x + 1
 
 
-# def g(x):
-#     return x * 2
+def g(x):
+    return x * 2
 
 
-# def h(x):
-#     return x // 2
+def h(x):
+    return x // 2
 
 
-# # print(f_yields_palindrome(2, f))   # prints True
-# # print(f_yields_palindrome(76, f))   # prints True
-# # print(f_yields_palindrome(11, g))   # prints True
-# # print(f_yields_palindrome(123, h))   # prints False
+print(f_yields_palindrome(2, f))  # prints True
+print(f_yields_palindrome(76, f))  # prints True
+print(f_yields_palindrome(11, g))  # prints True
+print(f_yields_palindrome(123, h))  # prints False
 
 # ###################################
 # ##################################
