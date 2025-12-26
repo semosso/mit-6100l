@@ -10,7 +10,11 @@ import string
 # HELPER CODE
 # -----------------------------------
 
-WORDLIST_FILENAME = "words.txt"
+WORDLIST_FILENAME = (
+    "/home/vinicius/projects/mit-6100l/pset2/words.txt"  # "words.txt" alone didn't work
+)
+# maybe because of venv? anyway, fixed
+
 
 def load_words():
     """
@@ -21,13 +25,14 @@ def load_words():
     """
     print("Loading word list from file...")
     # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r')
+    inFile = open(WORDLIST_FILENAME, "r")
     # line: string
     line = inFile.readline()
     # wordlist: list of strings
     wordlist = line.split()
     print(" ", len(wordlist), "words loaded.")
     return wordlist
+
 
 def choose_word(wordlist):
     """
@@ -37,6 +42,7 @@ def choose_word(wordlist):
     """
     return random.choice(wordlist)
 
+
 # -----------------------------------
 # END OF HELPER CODE
 # -----------------------------------
@@ -44,6 +50,7 @@ def choose_word(wordlist):
 
 # Load the list of words to be accessed from anywhere in the program
 wordlist = load_words()
+
 
 def has_player_won(secret_word, letters_guessed):
     """
@@ -55,7 +62,10 @@ def has_player_won(secret_word, letters_guessed):
         False otherwise
     """
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    return all(
+        c in letters_guessed for c in secret_word
+    )  # T or F, all() already returns boolean
+    # is the order right? should it be inverted?
 
 
 def get_word_progress(secret_word, letters_guessed):
@@ -68,7 +78,13 @@ def get_word_progress(secret_word, letters_guessed):
         which letters in secret_word have not been guessed so far
     """
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    updated_word = ""
+    for c in secret_word:
+        if c in letters_guessed:
+            updated_word += c
+        else:
+            updated_word += "*"
+    return updated_word
 
 
 def get_available_letters(letters_guessed):
@@ -81,8 +97,30 @@ def get_available_letters(letters_guessed):
       alphabetical order
     """
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    available_letters = string.ascii_lowercase
+    updated_string = ""
+    for c in available_letters:
+        if c not in letters_guessed:
+            updated_string += c
+    return updated_string
 
+
+def scoring(secret_word, remaining_guesses):
+    unique = ""
+    for c in secret_word:
+        if c not in unique:
+            unique += c
+    return remaining_guesses + 4 * len(unique) + 3 * len(secret_word)
+
+
+def help_enabled(secret_word, available_letters):
+    choose_from = ""
+    for c in secret_word:
+        if c in available_letters:
+            choose_from += c
+    new = random.randint(0, len(choose_from) - 1)
+    revealed_letter = choose_from[new]
+    return revealed_letter
 
 
 def hangman(secret_word, with_help):
@@ -125,8 +163,77 @@ def hangman(secret_word, with_help):
     Follows the other limitations detailed in the problem write-up.
     """
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
-
+    remaining_guesses = 10
+    letters_guessed = []
+    print(
+        f"Welcome to Hangman!\n"
+        f"I'm thinking of a word that is {len(secret_word)} letters long."
+        f"\n---"
+    )
+    while remaining_guesses > 0:
+        if remaining_guesses == 1:
+            print(
+                f"You have {remaining_guesses} guess left.\n"
+                f"Available letters: {get_available_letters(letters_guessed)}"
+            )
+        else:
+            print(
+                f"You have {remaining_guesses} guesses left.\n"
+                f"Available letters: {get_available_letters(letters_guessed)}"
+            )
+        guess = str(input("Please guess a letter: ")).lower()
+        if guess.isalpha():
+            if guess in letters_guessed:
+                print(
+                    f"Oops! You've already guessed that letter: {get_word_progress(secret_word, letters_guessed)}"
+                    f"\n---"
+                )
+            else:
+                letters_guessed += guess
+                if guess in secret_word:
+                    print(
+                        f"Good guess: {get_word_progress(secret_word, letters_guessed)}"
+                        f"\n---"
+                    )
+                else:
+                    print(
+                        f"Oops! That is not a letter in my word: {get_word_progress(secret_word, letters_guessed)}"
+                        f"\n---"
+                    )
+                    if guess in "aeiou":
+                        remaining_guesses -= 2
+                    else:
+                        remaining_guesses -= 1
+        elif with_help and guess == "!":
+            if remaining_guesses <= 3:
+                print(
+                    f"Oops! Not enough guesses left: {get_word_progress(secret_word, letters_guessed)}"
+                    f"\n---"
+                )
+            else:
+                letter_revealed = help_enabled(
+                    secret_word, get_available_letters(letters_guessed)
+                )
+                letters_guessed += letter_revealed
+                print(
+                    f"Letter revealed: {letter_revealed}\n"
+                    f"{get_word_progress(secret_word, letters_guessed)}"
+                    f"\n---"
+                )
+                remaining_guesses -= 3
+        else:
+            guess = input(
+                f"Oops! That is not a valid letter. Please input a valid letter from the alphabet: {get_word_progress(secret_word, letters_guessed)}"
+                f"\n---"
+            )
+        if has_player_won(secret_word, letters_guessed):
+            print(
+                f"Congratulations, you won!\n"
+                f"Your total score for this game is: {scoring(secret_word, remaining_guesses)}"
+            )
+            break
+    if has_player_won(secret_word, letters_guessed) is False:
+        print(f"Sorry, you ran out of guesses. The word was {secret_word}")
 
 
 # When you've completed your hangman function, scroll down to the bottom
@@ -135,9 +242,9 @@ def hangman(secret_word, with_help):
 if __name__ == "__main__":
     # To test your game, uncomment the following three lines.
 
-    # secret_word = choose_word(wordlist)
-    # with_help = False
-    # hangman(secret_word, with_help)
+    secret_word = choose_word(wordlist)
+    with_help = True
+    hangman(secret_word, with_help)
 
     # After you complete with_help functionality, change with_help to True
     # and try entering "!" as a guess!
@@ -149,5 +256,3 @@ if __name__ == "__main__":
     # It doesn't matter if the lines above are commented in or not
     # when you submit your pset. However, please run ps2_student_tester.py
     # one more time before submitting to make sure all the tests pass.
-    pass
-
