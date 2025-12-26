@@ -71,7 +71,9 @@ print(common_elements((2, 3, 4), (3, 4, 5, 6)))
 def remove_list_range(ls, low, high):
     revised = []
     for e in ls:
-        for elem in e:
+        for elem in e:  # alternatively, only one for, with min() and max() of list
+            # because the prompt was to remove the entire sublist, not elements from multiple lists
+            # in this particular case, answer is the same, but I was wrong
             if elem >= low and elem <= high:
                 revised += [elem]  # I was adding "e" and getting different result
     return revised
