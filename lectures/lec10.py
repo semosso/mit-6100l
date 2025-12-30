@@ -1,4 +1,25 @@
 #################
+## reading
+###############
+# finger exercise, p 107: Implement a funtion satisfying the following specification.
+# Hint: it will be convenient to use `lambda` in the body of the implementation.
+def f(L1, L2):
+    """L1, L2 lists of same lengths of numbers
+    returns the sum of raising each element in L1
+    to the power of the element at the same index in L2
+    For example, f([1,2], [2,3]) returns 9"""
+
+    # VAO: my code here
+    sum_n = 0
+    for n in map(lambda x, y: x**y, L1, L2):
+        sum_n += n
+    return sum_n
+
+
+print(f([1, 2], [2, 3]))
+print(f([2, 5], [4, 3]))  # prints 141
+
+#################
 ## EXAMPLE: change value in a list and appending a value to a list
 ###############
 # L = [2, 4, 3]
@@ -11,12 +32,15 @@
 
 ############# YOU TRY IT #####################
 # What is the value of L1, L2, L3, and L after these commands?
-# L1 = ['re']
-# L2 = ['mi']
-# L3 = ['do']
-# L4 = L1 + L2
-# L3.append(L4)
-# L = L2.append(L3)
+L1 = ["re"]
+L2 = ["mi"]
+L3 = ["do"]
+L4 = L1 + L2  # ["re", "mi"]
+L3.append(L4)  # ["do", ["re", "mi"]]
+L = L2.append(
+    L3
+)  # L is None, but the right hadn expression evaluates to ["mi", ["do", ["re", "mi"]]]
+# VAO: good to think about the actual types of objects that result from each of this
 
 #################################################
 
@@ -29,9 +53,14 @@ def make_ordered_list(n):
     from 0 to n (inclusive)
     """
     # your code here
+    # VAO: my code
+    ls = []
+    for num in range(n + 1):  # for some reason, used range(len(n + 1)) at first
+        ls.append(num)
+    return ls  # forgot return at first
 
 
-# print(make_ordered_list(6))  # prints [0, 1, 2, 3, 4, 5, 6]
+print(make_ordered_list(6))  # prints [0, 1, 2, 3, 4, 5, 6]
 
 #####################################################
 
@@ -44,14 +73,20 @@ def remove_elem(L, e):
     but without any elements equal to e.
     """
     # your code here
+    # VAO: my code
+    new_L = []
+    for elem in L:
+        if elem != e:
+            new_L.append(elem)
+    return new_L
 
 
-# L = [1,2,2,2]
-# print(remove_elem(L, 2))    # prints [1]
-# L = [1,2,2,2]
-# print(remove_elem(L, 1))    # prints [2,2,2]
-# L = [1,2,2,2]
-# print(remove_elem(L, 0))    # prints [1,2,2,2]
+L = [1, 2, 2, 2]
+print(remove_elem(L, 2))  # prints [1]
+L = [1, 2, 2, 2]
+print(remove_elem(L, 1))  # prints [2,2,2]
+L = [1, 2, 2, 2]
+print(remove_elem(L, 0))  # prints [1,2,2,2]
 
 
 #######################################
@@ -87,13 +122,16 @@ def count_words(sen):
     Returns how many words are in sen (i.e. a word is a
     a sequence of characters between spaces."""
     # your code here
+    # VAO: my code
+    ls_sen = sen.split(" ")  # interesting, empty quotes don't count as space
+    return len(ls_sen)
 
 
-# s = "Hello it's me"
-# print(count_words(s))   # prints 3
+s = "Hello it's me"
+print(count_words(s))  # prints 3
 
-# s = "I just took a DNA test turns out I'm 100% splitting strings"
-# print(count_words(s))   # prints 12
+s = "I just took a DNA test turns out I'm 100% splitting strings"
+print(count_words(s))  # prints 12
 
 ###########################################
 
@@ -119,13 +157,19 @@ def sort_words(sen):
     Returns a list containing all the words in sen but
     sorted in alphabetical order."""
     # your code here
+    # VAO: my code
+    ls = sen.split(
+        " "
+    )  # can I combine? i.e., sen.split().sort? nope. maybe because it evaluates from the right?
+    ls.sort()
+    return ls  # ls.sort() returns None; `sorted(ls)` or `sorted(sen.split(" "))` w/o the first line BOTH work
 
 
-# s = "look at this photograph"
-# print(sort_words(s))    # prints ['at', 'look', 'photograph', 'this']
+s = "look at this photograph"
+print(sort_words(s))  # prints ['at', 'look', 'photograph', 'this']
 
-# s = "now this is a story all about how my life got flipped turned upside down"
-# print(sort_words(s))
+s = "now this is a story all about how my life got flipped turned upside down"
+print(sort_words(s))
 
 ##########################################
 
@@ -133,18 +177,38 @@ def sort_words(sen):
 ##############
 ## Loops over lists
 ################
-def square_list(L):
-    for i in range(len(L)):
-        L[i] = L[i] ** 2
+def square_list2(L):
+    for i in range(len(L)):  # for `index`, manipulate `element`
+        L[i] = (
+            L[i] ** 2
+        )  # LH is not statement, but a name that points to a spot where you find an element
 
 
-# print(square_list([2,3,4]))  # prints None
+# VAO: try to implement options 1 and 3 as well
+# option 1, Make a new variable representing the index, initialized to 0
+# before the loop and incremented by 1 in the loop.
+def square_list1(L):
+    index = 0
+    for elem in L:
+        L[index] = elem**2
+        index += 1
 
-# Lin = [2,3,4]
-# print("before fcn call:",Lin)
-# square_list(Lin)
-# print("after fcn call:",Lin)   # mutated L
 
+# option 3, Use enumerate in the for loop (I leave this option to you to
+# look up). i.e. for i,e in enumerate(L)
+# VAO: enumerate() takes in an iterable and returns an enumerate object, starting at defualt 0
+# e.g., list(enumerate(lin)) would return a list of tuples [(0, 4), (1, 3), (2, 4)]
+def square_list3(L):
+    for index, elem in enumerate(L):
+        L[index] = elem**2
+
+
+print(square_list3([2, 3, 4]))  # prints None
+
+Lin = [2, 3, 4]
+print("before fcn call:", Lin)
+square_list3(Lin)
+print("after fcn call:", Lin)  # mutated L
 
 ##############
 ## TRICKY EXAMPLE 1: append to L white iterating over range(L)
@@ -338,3 +402,17 @@ def apply_to_each(L, f):
 
 ############################
 ############################
+
+
+# Finger exercise: implement the function that meets the specifications below:
+def all_true(n, Lf):
+    """n is an int
+        Lf is a list of functions that take in an int and return a Boolean
+    Returns True if each and every function in Lf returns True when called
+    with n as a parameter. Otherwise returns False.
+    """
+    # Your code here
+
+
+# Examples:
+all_true()  # prints 6
