@@ -342,40 +342,58 @@ def sort_words(s):
 ############ AT HOME ###############
 #######################################
 ## Question 1
-# L1 = ['re']
-# L2 = ['mi']
-# L3 = ['do']
-# L4 = L1 + L2
-# L3.extend(L4)
-# L3.sort()
-# del(L3[0])
-# L3.append(['fa', 'la'])
-# What's the value of L3 here?
+# VAO: my comments here
+L1 = ["re"]
+L2 = ["mi"]
+L3 = ["do"]
+L4 = L1 + L2  # ['re', 'mi']
+L3.extend(
+    L4
+)  # same list, ['do', 're', 'mi'], because .extend is iterable, goes over all elements
+L3.sort()  # same list, ['do', 'mi', 're']
+del L3[0]  # same list, ['mi', 're']
+L3.append(
+    ["fa", "la"]
+)  # ['mi', 're', ['fa', 'la']], because .append adds a single item (list),
+# i.e., append doesn´t iterate over elements, extend does
+# What's the value of L3 here? # yep, above was correct
 
 ## Question 2
-# L1 = ['bacon', 'eggs']
-# L2 = ['toast', 'jam']
-# brunch = L1
-# L1.append('juice')
-# brunch.extend(L2)
-# What's the value of brunch here?
+# VAO: my comments here
+L1 = ["bacon", "eggs"]
+L2 = ["toast", "jam"]
+brunch = L1  # ["bacon", "eggs"]
+L1.append("juice")  # same list L1 becomes ["bacon", "eggs", "juice"]
+brunch.extend(
+    L2
+)  # brunch is equal to the object L1, which is now ["bacon", "eggs", "juice"]
+# so, with .extend(L2), brunch is now ["bacon", "eggs", "juice", "toast", "jam"]
+# What's the value of brunch here? # yep, above was correct
 
 
 ## Question 3.
 def apply_to_each(L, f):
     """L is a list of numbers
-        f is a list that takes in a number and returns a number
+        f is a list (VAO: or a function?) that takes in a number and returns a number
     Mutate L such that you apply function f to every element in L"""
     # your code here
+    # VAO: my code
+    for i in range(
+        len(L)
+    ):  # other ways of doing it (above), to avoid mutating the L/elements before f() takes place:
+        # 1, creating a variable for the index and increasing it
+        # 2, using evaluate() to get a tuple (index, element)
+        L[i] = f(L[i])
+    # no return, I'm only mutating L
 
 
-# test = [1,-2,3]
-# apply_to_each(test, lambda x: x**2)
-# print(test)   # prints [1,4,9]
+test = [1, -2, 3]
+apply_to_each(test, lambda x: x**2)
+print(test)  # prints [1,4,9]
 
-# test = [-7, 8, 5, -8, -3]
-# apply_to_each(test, abs)
-# print(test)   # prints [7, 8, 5, 8, 3]
+test = [-7, 8, 5, -8, -3]
+apply_to_each(test, abs)
+print(test)  # prints [7, 8, 5, 8, 3]
 
 
 ########################################
@@ -412,7 +430,13 @@ def all_true(n, Lf):
     with n as a parameter. Otherwise returns False.
     """
     # Your code here
+    # VAO: my code
+    for fun in Lf:
+        if not fun(n):
+            return False  # any False will break; if all True, loop ends w/o breaking and returns True
+    return True
 
 
 # Examples:
 all_true()  # prints 6
+# VAO: this makes zero sense; it's missing all the necessary parameters
