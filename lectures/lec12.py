@@ -231,3 +231,32 @@ print([e[1] for e in L if (type(e) is str and len(e) == 3)])  #
 L = ["abc", "m", "p", "xyz", "123", 57]
 # print([e[1] for e in L if len(e)==3 and type(e)==str])
 ###################################
+
+
+#####
+# finger exercise
+#####
+# finger exercise, implement the function that meets the specifications below:
+def count_sqrts(nums_list):
+    """
+    nums_list: a list
+    Assumes that nums_list only contains positive numbers and that there are no duplicates.
+    Returns how many elements in nums_list are exact squares of elements in the same list,
+    including itself.
+    """
+    # Your code here
+    # VAO: create a list by looping elements over the others; returns len(list)
+    # VAO: initial list comprehension didn't work, so I did it the old fashioned way
+    # which was super helpful to understand how to fix the list comprehension
+    # nested list comprehension! just like nested loop! "in nums_list" is the ticket!
+    ls = [num for num in nums_list if num**2 and num**0.5 in nums_list]
+    # ls = []
+    # for i in range(len(nums_list)):
+    #     for ix in range(len(nums_list)):
+    #         if nums_list[i] == nums_list[ix] ** 2:
+    #             ls.append([nums_list[i]])
+    return len(ls)
+
+
+# Examples:
+print(count_sqrts([3, 4, 2, 1, 9, 25]))  # prints 3
