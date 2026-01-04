@@ -35,8 +35,8 @@ def find_an_even(L):
 
 test = [[1, 2, 3, 4], [3, 4, 5], [3, 5, 7, 9]]
 
-for e in test:
-    print(find_an_even(e))
+for l in test:
+    print(find_an_even(l))
 
 ######################################
 # lecture
