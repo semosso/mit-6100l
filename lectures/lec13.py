@@ -176,16 +176,24 @@ def pairwise_div(Lnum, Ldenom):
     Raise a ValueError if Ldenom contains 0."""
     # your code here
     # challenge: write this with list comprehension!
+    # VAO: my code
+    assert len(Lnum) == len(Ldenom), "different length between lists"
+    assert len(Lnum) and len(Ldenom) > 0, "empty lists"
+    try:
+        Ldiv = [(Lnum[i] / Ldenom[i]) for i in range(len(Lnum))]
+    except ZeroDivisionError:
+        print("0 in Ldenom")
+    return Ldiv
 
 
 # For example:
-L1 = [4, 5, 6]
-L2 = [1, 2, 3]
-# print(pairwise_div(L1, L2))  # prints [4.0,2.5,2.0]
+# L1 = [4, 5, 6]
+# L2 = [1, 2, 3]
+# # print(pairwise_div(L1, L2))  # prints [4.0,2.5,2.0]
 
-L1 = [4, 5, 6]
-L2 = [1, 0, 3]
-# print(pairwise_div(L1, L2))  # raises a ValueError
+# L1 = [4, 5, 6]
+# L2 = [1, 0, 3]
+# # print(pairwise_div(L1, L2))  # raises a ValueError
 
 ## to run after introducing assertions
 L1 = [4, 5, 6, 7, 8]
@@ -194,7 +202,7 @@ L2 = [1, 8, 3]
 
 L1 = []
 L2 = []
-# print(pairwise_div(L1, L2))  # raises an AssertionError
+print(pairwise_div(L1, L2))  # raises an AssertionError
 
 
 #########################################
@@ -312,6 +320,47 @@ def pairwise_div(Lnum, Ldenom):
     Raise a ValueError if L2 contains 0 or if the code can't
     perform the division for some reason."""
     # your code here
+    # VAO: exactly the same as above
+    try:
+        Ldiv = [(Lnum[i] / Ldenom[i]) for i in range(len(Lnum))]
+    except:
+        raise ValueError("0 in Ldenom")
+    return Ldiv
+
+
+print(pairwise_div([1, 2, 3], [4, 5, 0]))
+
+
+# lecture finger exercise, implement the function that meets the specifications below:
+def sum_str_lengths(L):
+    """
+    L is a non-empty list containing either: # VAO: assert 1
+    * string elements or
+    * a non-empty sublist of string elements # VAO: assert 2
+    Returns the sum of the length of all strings in L and
+    lengths of strings in the sublists of L. If L contains an
+    element that is not a string or a list, or L's sublists
+    contain an element that is not a string, raise a ValueError.
+    """
+    # Your code here
+    # VAO: my code
+    assert len(L) != 0, "empty list"
+    sum_len = 0
+    for e in L:
+        if type(e) is str:
+            sum_len += len(e)
+        elif type(e) is list:
+            for elem in e:
+                sum_len += len(elem)
+        else:
+            raise ValueError("element is not string")
+    return sum_len
+
+
+# Examples:
+print(sum_str_lengths(["abcd", ["e", "fg"]]))  # prints 7
+print(sum_str_lengths([12, ["e", "fg"]]))  # raises ValueError
+print(sum_str_lengths(["abcd", [3, "fg"]]))  # raises ValueError
 
 
 ##############################################
