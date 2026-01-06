@@ -2,9 +2,6 @@
 ## reading
 #######################################
 # finger exercise, p 117: Implement a function that meets the specification
-from ssl import _Cipher
-
-
 def get_min(d):
     """d a dict mapping letter to ints
     returns the value in d with the key that occurs first in the
@@ -53,6 +50,7 @@ print(decrypt(don_quixote, message))
 
 
 #######################################
+## lecture
 ## EXAMPLE: getting grades using lists, do NOT do it this way...
 #######################################
 def get_grade_list(student, name_list, grade_list):
@@ -151,28 +149,38 @@ def find_grades(grades, students):
         students is a list of student names
     Returns a list containing the grades for students (in the same order)"""
     # your code here
+    # VAO: my code
+    list_grades = []
+    for s in students:
+        list_grades.append(grades[s])
+    return list_grades
 
 
 d = {"Ana": "B", "Matt": "C", "John": "B", "Katy": "A"}
-# print(find_grades(d, ['Matt', 'Katy'])) # returns ['C', 'A']
+print(find_grades(d, ["Matt", "Katy"]))  # returns ['C', 'A']
 
 ########################################################
 
 
 ################## YOU TRY IT #########################
 def find_in_L(Ld, k):
-    """L is a list of dicts
+    """Ld is a list of dicts
         k is an int
     Returns True if k is a key in any dicts of L and False otherwise"""
     # your code here
+    # VAO: my code
+    for d in Ld:
+        if k in d:
+            return True
+    return False
 
 
 d1 = {1: 2, 3: 4, 5: 6}
 d2 = {2: 4, 4: 6}
 d3 = {1: 1, 3: 9, 4: 16, 5: 25}
 
-# print(find_in_L([d1, d2, d3], 2))  # returns True
-# print(find_in_L([d1, d2, d3], 25))  # returns False
+print(find_in_L([d1, d2, d3], 2))  # returns True
+print(find_in_L([d1, d2, d3], 25))  # returns False
 
 ########################################################
 
@@ -182,13 +190,19 @@ def count_matches(d):
     """d is a dict
     Returns how many entries in d have the key equal to its value"""
     # your code here
+    # VAO: my code
+    count = 0
+    for k, v in d.items():
+        if k == v:
+            count += 1
+    return count
 
 
 d = {1: 2, 3: 4, 5: 6}
-# print(count_matches(d))   # prints 0
+print(count_matches(d))  # prints 0
 
 d = {1: 2, "a": "a", 5: 5}
-# print(count_matches(d))   # prints 2
+print(count_matches(d))  # prints 2
 
 ##############################################################
 
@@ -379,27 +393,32 @@ def count_matches(d):
 ######################################################
 ############## AT HOME ###################
 ######################################################
-
-
 def is_inverse(d1, d2):
     """d1 and d2 are dicts
     Assume values of d1 and d2 are unique and immutable
     Returns True if d1's keys are values in d2 and d1's
     values are keys in d2"""
-    pass
+    for k1, v1 in d1.items():
+        if (k1 not in d2.values()) or (v1 not in d2):
+            return False
+    return True
+
+    # VAO: now per the apparent intent
+    return d2 == {k: v for v, k in d1.items()}
 
 
-# d1 = {1:2, 3:4}
-# d2 = {2:1, 4:3}
-# print(is_inverse(d1, d2))  # prints True
+d1 = {1: 2, 3: 4}
+d2 = {2: 1, 4: 3}
+print(is_inverse(d1, d2))  # prints True
 
-# d1 = {1:2, 3:4}
-# d2 = {2:1, 4:3, 5:6}
-# print(is_inverse(d1, d2))  # prints False
+d1 = {1: 2, 3: 4}
+d2 = {2: 1, 4: 3, 5: 6}
+print(is_inverse(d1, d2))  # prints False # VAO: actually, True per specification
+# poorly worded if it meant that d2's only k,v should be v,k from d1
 
-# d1 = {1:2, 3:4}
-# d2 = {1:2, 2:1}
-# print(is_inverse(d1, d2))  # prints False
+d1 = {1: 2, 3: 4}
+d2 = {1: 2, 2: 1}
+print(is_inverse(d1, d2))  # prints False
 
 
 def add_to_d(d, L):
@@ -409,23 +428,74 @@ def add_to_d(d, L):
     tuple in L and the associated value is the second element of a
     tuple in L. If the key is already in d, do nothing to its value.
     If the key cannot be added, raise a ValueError. Returns None."""
-    pass
+    # VAO: my code
+    for t in L:
+        try:
+            if t[0] not in d:
+                d[t[0]] = t[1]
+        except:
+            raise ValueError
 
 
-# d = {}
-# L = [(1,2), (3,4)]
-# add_to_d(d, L)
-# print(d)   # d is mutated to be {1: 2, 3: 4}
+d = {}
+L = [(1, 2), (3, 4)]
+add_to_d(d, L)
+print(d)  # d is mutated to be {1: 2, 3: 4}
 
-# d = {1:1}
-# L = [(1,2), (3,4)]
-# add_to_d(d, L)
-# print(d)   # d is mutated to be {1: 1, 3: 4}
+d = {1: 1}
+L = [(1, 2), (3, 4)]
+add_to_d(d, L)
+print(d)  # d is mutated to be {1: 1, 3: 4}
 
-# d = {1:1}
-# L = [(3,4), ([1,2,3], 5)]
-# add_to_d(d, L)
-# # raises a ValueError because its trying to add a list (mutable obj) as key
+d = {1: 1}
+L = [(3, 4), ([1, 2, 3], 5)]
+add_to_d(d, L)
+# raises a ValueError because its trying to add a list (mutable obj) as key
+
+
+# finger exercises: Implement the functions that meets the specifications below:
+def keys_with_value(aDict, target):
+    """
+    aDict: a dictionary
+    target: an integer or string
+    Assume that keys and values in aDict are integers or strings.
+    Returns a sorted list of the keys in aDict with the value target.
+    If aDict does not contain the value target, returns an empty list.
+    """
+    # Your code here
+    # VAO: my code
+    return_list = []
+    for k, v in aDict.items():
+        if v == target:
+            return_list.append(k)
+    return sorted(return_list)
+
+
+# Examples:
+aDict = {1: 2, 2: 4, 5: 2}
+target = 2
+print(keys_with_value(aDict, target))  # prints the list [1,5]
+
+
+def all_positive(d):
+    """
+    d is a dictionary that maps int:list
+    Suppose an element in d is a key k mapping to value v (a non-empty list).
+    Returns the sorted list of all k whose v elements sums up to a
+    positive value.
+    """
+    # Your code here
+    # VAO: my code
+    return_list = []
+    for k, v in d.items():
+        if sum(v) > 0:
+            return_list.append(k)
+    return sorted(return_list)
+
+
+# Examples:
+d = {5: [2, -4], 2: [1, 2, 3], 1: [2]}
+print(all_positive(d))  # prints the list [1, 2]
 
 
 ################################################################
