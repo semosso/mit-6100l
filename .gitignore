@@ -1,4 +1,5 @@
 nohup.out
-pset2/__pycache__/hangman.cpython-312.pyc
+__pycache__
 __MACOSX/
 *.pdf
+mit-6100l.code-workspace
