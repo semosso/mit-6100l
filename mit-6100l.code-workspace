@@ -3,5 +3,9 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"workbench.colorTheme": "Sonokai Atlantis",
+		"python.defaultInterpreterPath": "./.venv/bin/python"
+	}
 }
