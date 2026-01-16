@@ -1,7 +1,6 @@
 ###############
 ## Fibonacci with a dictionary
 #################
-from prompt_toolkit.filters import emacs_selection_mode
 
 
 def fib_recur(n):
