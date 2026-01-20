@@ -647,7 +647,8 @@ class Stack(Container):
         # Your code here
         # VAO: my code
         # solutions add a check to see if list is not empty, good idea
-        self.myList.pop() # this already pops the last element, no?
+        if self.myList:
+            return self.myList.pop() # this already pops the last element, no?
         return None # because pop() returns the element
         # alternatively, should do the same thing
         del self.myList[:-1] 
